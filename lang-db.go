@@ -1,5 +1,6 @@
 package iso639_2
 
+// Languages lookup table. Keys are ISO 639-1 and ISO 639-2 codes
 var Languages = map[string]Language{
 	"aa": {Alpha3: "aar", Alpha2: "aa", English: []string{"Afar"},
 		French: []string{"afar"}},

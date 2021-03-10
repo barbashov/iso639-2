@@ -18,19 +18,24 @@ import (
 )
 
 const (
-	DefaultInput                    = "http://loc.gov/standards/iso639-2/ISO-639-2_utf-8.txt"
-	HttpTimeout                     = 60 * time.Second
-	UTF8BOM                         = "\uFEFF"
-	InputFileSeparator              = "|"
-	InputFileLineColumns            = 5
-	InputFileLanguageNamesSeparator = "; "
+	defaultInput                    = "http://loc.gov/standards/iso639-2/ISO-639-2_utf-8.txt"
+	httpTimeout                     = 60 * time.Second
+	utf8BOM                         = "\uFEFF"
+	inputFileSeparator              = "|"
+	inputFileLineColumns            = 5
+	inputFileLanguageNamesSeparator = "; "
+
+	sourceFilePrefix = `package iso639_2
+
+// Languages lookup table. Keys are ISO 639-1 and ISO 639-2 codes
+var Languages = `
 )
 
 func main() {
 	lookup := map[string]iso639_2.Language{}
 
-	inputFile := flag.String("i", DefaultInput,
-		fmt.Sprintf("Path or URL to input file in pipe-separated loc.gov format (default %s)", DefaultInput))
+	inputFile := flag.String("i", defaultInput,
+		fmt.Sprintf("Path or URL to input file in pipe-separated loc.gov format (default %s)", defaultInput))
 	outfile := flag.String("o", "", "Output file (default - standard output)")
 	flag.Parse()
 
@@ -43,22 +48,22 @@ func main() {
 		lineNum++
 		line := scanner.Text()
 
-		columns := strings.Split(line, InputFileSeparator)
-		if len(columns) != InputFileLineColumns {
+		columns := strings.Split(line, inputFileSeparator)
+		if len(columns) != inputFileLineColumns {
 			log.Fatalf("Error reading input file at line %d: %d columns expected, %d found",
-				lineNum, InputFileLineColumns, len(columns))
+				lineNum, inputFileLineColumns, len(columns))
 		}
 
-		if strings.HasPrefix(columns[0], UTF8BOM) {
+		if strings.HasPrefix(columns[0], utf8BOM) {
 			// remove UTF-8 BOM
-			columns[0] = columns[0][len(UTF8BOM):]
+			columns[0] = columns[0][len(utf8BOM):]
 		}
 
 		language := iso639_2.Language{
 			Alpha3:  columns[0],
 			Alpha2:  columns[2],
-			English: strings.Split(columns[3], InputFileLanguageNamesSeparator),
-			French:  strings.Split(columns[4], InputFileLanguageNamesSeparator),
+			English: strings.Split(columns[3], inputFileLanguageNamesSeparator),
+			French:  strings.Split(columns[4], inputFileLanguageNamesSeparator),
 		}
 
 		if language.Alpha3 != "" {
@@ -93,7 +98,7 @@ func getInput(uri string) io.Reader {
 	}
 
 	httpClient := &http.Client{
-		Timeout: HttpTimeout,
+		Timeout: httpTimeout,
 	}
 
 	r, err := httpClient.Get(uri)
@@ -120,7 +125,7 @@ func outputLookup(w io.Writer, lookup map[string]iso639_2.Language) {
 	lookupStr = replacer.Replace(lookupStr)
 
 	buf := bytes.Buffer{}
-	_, err := fmt.Fprintf(&buf, "package iso639_2\n\nvar Languages = %s\n", lookupStr)
+	_, err := fmt.Fprintf(&buf, "%s%s\n", sourceFilePrefix, lookupStr)
 	if err != nil {
 		log.Fatalf("Error generating: %v", err)
 	}

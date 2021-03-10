@@ -23,7 +23,7 @@ func TestFromCode(t *testing.T) {
 				if actual != nil {
 					t.Errorf("FromCode() = %v, expected nil", actual)
 				}
-			} else if actual == nil || !SliceContainsString(actual.English, tt.expectedName) {
+			} else if actual == nil || !sliceContainsString(actual.English, tt.expectedName) {
 				t.Errorf("FromCode() = %v, expected Language with english name %v", actual, tt.expectedName)
 			}
 		})
