@@ -1,10 +1,11 @@
 package iso639_2
 
+// Language holds language information
 type Language struct {
-	Alpha3  string
-	Alpha2  string
-	English []string
-	French  []string
+	Alpha3  string   // ISO 639-2 Alpha-3 code
+	Alpha2  string   // ISO 639-1 Alpha-2 code
+	English []string // English names of a language
+	French  []string // French names of a language
 }
 
 //go:generate go run cmd/generator.go -o lang-db.go
