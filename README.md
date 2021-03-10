@@ -35,7 +35,7 @@ iso639_2.FromFrenchName("anglais") // returns object representing English langua
 
 ## Contribute
 
-Feel free to open issues send pull requests.
+Feel free to open issues and send pull requests.
 
 ## License
 
