@@ -10,7 +10,7 @@ type Language struct {
 
 //go:generate go run cmd/generator.go -o lang-db.go
 
-// FromCode looks up language for given ISO639-1 or ISO639-2 code
+// FromCode looks up language for given ISO639-1 or ISO639-2 code.
 // Returns nil if not found
 func FromCode(code string) *Language {
 	if l, ok := Languages[code]; ok {
@@ -19,7 +19,7 @@ func FromCode(code string) *Language {
 	return nil
 }
 
-// FromEnglishName looks up language for given english name
+// FromEnglishName looks up language for given english name.
 // Returns nil if not found
 func FromEnglishName(name string) *Language {
 	for _, l := range Languages {
@@ -30,7 +30,7 @@ func FromEnglishName(name string) *Language {
 	return nil
 }
 
-// FromFrenchName looks up language for given french name
+// FromFrenchName looks up language for given french name.
 // Returns nil if not found
 func FromFrenchName(name string) *Language {
 	for _, l := range Languages {
