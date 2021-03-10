@@ -1,6 +1,6 @@
 # ISO 639-2
 
-![Tests badge](https://github.com/barbashov/iso639-2/actions/workflows/test.yml/badge.svg)
+[![Test](https://github.com/barbashov/iso639-2/actions/workflows/test.yml/badge.svg)](https://github.com/barbashov/iso639-2/actions/workflows/test.yml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/barbashov/iso639-2)](https://goreportcard.com/report/github.com/barbashov/iso639-2)
 
 
