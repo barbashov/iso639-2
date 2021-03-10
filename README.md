@@ -1,5 +1,9 @@
 # ISO 639-2
 
+![Tests badge](https://github.com/barbashov/iso639-2/actions/workflows/test.yml/badge.svg)
+[![Go Report Card](https://goreportcard.com/badge/github.com/barbashov/iso639-2)](https://goreportcard.com/report/github.com/barbashov/iso639-2)
+
+
 A database of ISO 639-2 and ISO 639-1 languages.
 
 Generated from official ISO 639-2 list, so no native names, unfortunately :(
