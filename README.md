@@ -1,3 +1,7 @@
+# Deprecated
+
+Please use https://github.com/barbashov/iso639-3 instead.
+
 # ISO 639-2
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/barbashov/iso639-2?status.svg)](https://pkg.go.dev/github.com/barbashov/iso639-2)
